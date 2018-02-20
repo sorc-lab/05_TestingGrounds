@@ -10,6 +10,7 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
+#include "../Weapons/Gun.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -67,7 +68,9 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
 	VR_MuzzleLocation->SetupAttachment(VR_Gun);
 	VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
-	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
+
+	// Counteract the rotation of the VR gun model.
+	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f)); 
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
@@ -78,10 +81,24 @@ void AFirstPersonCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	//FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	if (GunBlueprint == NULL) {
+		UE_LOG(LogTemp, Warning, TEXT("GunBlueprint == NULL"));
+		return;
+	}
+	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 
-	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
+	// Attach gun mesh component to Skeleton, doing it here because the skeleton
+	// is not yet created in the constructor
+	Gun->AttachToComponent(
+		Mesh1P,
+		FAttachmentTransformRules(
+			EAttachmentRule::SnapToTarget, true
+		),
+		TEXT("GripPoint")
+	);
+
+	// Show or hide the two versions of the gun based on whether or not we're
+	// using motion controllers.
 	if (bUsingMotionControllers)
 	{
 		VR_Gun->SetHiddenInGame(false, true);
