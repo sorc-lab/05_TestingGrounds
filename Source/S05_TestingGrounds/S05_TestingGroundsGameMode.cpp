@@ -10,7 +10,7 @@ AS05_TestingGroundsGameMode::AS05_TestingGroundsGameMode()
 {
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(
-		TEXT("/Game/Dynamic/Player/Behavior/FirstPersonCharacter")
+		TEXT("/Game/Dynamic/Character/Behavior/Character")
 	);
 
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
