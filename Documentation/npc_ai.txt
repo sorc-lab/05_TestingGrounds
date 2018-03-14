@@ -47,10 +47,9 @@ Behavior Tasks:
 			1. ChooseNextWaypoint (C++)
 			2. Move To NextWaypoint
 
-
-*** Udemy notes ***
-- If you can see the enemy, and in range, shoot at the enemy.
-- If you see the enemy, move within range of the enemy.
+*** SUMMARY ***
+- If you can see the enemy, shoot at the enemy.
+- If you see the enemy, move within 300 meters of the enemy.
 - If you can't see the enemy, but haven't visited last known location, visit that
   location.
 - Else go to the next patrol point.
