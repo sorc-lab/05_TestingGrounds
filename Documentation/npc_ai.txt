@@ -1,0 +1,48 @@
+--> NPC_AI_BP <--
+[ Event Tick ]
+Gets the controlled Pawn (cast to Character)
+Sets the "Aiming Target" as the "Get Focus Actor"
+Sets "Shooting Target" on "Focus Actor"
+	NOTE: Cannot see where these variables are used
+
+[ Event BeginPlay ]
+Sets up the Blackboard on target (AIController)--using PatrolData asset
+Sets the Blackboard component
+Runs Behavior Tree (GuardBehavior asset)
+
+[ On Target Perception Updated (AIPerception) ]
+IF !target is actor
+	IF !successfully sensed
+		CLEAR ENEMY KEY from Blackboard Component
+ELSE
+	SET ENEMY KEY in Blackboard Component
+
+
+--> GuardBehavior <--
+Selector:
+	SetFocus (Blueprint Class):
+		ticks every 0.40s to 0.60s
+		Focus Actor Key: Enemy
+			Sets the Focus Actor Key
+
+	UpdateLastLocation (Blueprint Class):
+		Stores "Last Known Location" of Actor as vector value
+
+Behavior Tasks:
+	1. Should chase IF 'enemy' IS SET
+		Is At Location: Enemy within radius of 300 meters
+			Run Behavior: Chase
+				MoveTo 'enemy' location keeping the 300 meters distance
+
+	2. Is suspicious IF 'Enemy' IS NOT SET
+		Run Behavior: Suspicion
+			Behavior Tree:
+				1. Move to LastSeenLocation
+				2. Wait 5.0s
+				3. Clear Blackboard Value: LastSeenLocation
+
+	3. Should Patrol IF 'Enemy' IS NOT SET
+		Shouldn't Be Suspicious IF LastSeenLocation IS NOT SET
+		Run Behavior: Patrol
+			1. ChooseNextWaypoint (C++)
+			2. Move To NextWaypoint
