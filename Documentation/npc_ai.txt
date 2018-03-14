@@ -47,11 +47,10 @@ Behavior Tasks:
 			1. ChooseNextWaypoint (C++)
 			2. Move To NextWaypoint
 
-*** SUMMARY ***
-- If you can see the enemy, shoot at the enemy.
-- If you see the enemy, move within 300 meters of the enemy.
+*** PSEUDO CODE ***
+- If you can see the enemy and within 300 meters, shoot at the enemy.
+- If you see the enemy and not within 300 meters, move within 300 meters of the
+  enemy while shooting at the enemy.
 - If you can't see the enemy, but haven't visited last known location, visit that
   location.
 - Else go to the next patrol point.
-
-
