@@ -51,7 +51,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 
 	// Create VR Controllers.
 	R_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("R_MotionController"));
-	R_MotionController->Hand = EControllerHand::Right;
+	// REMOVED--'Hand' is not a member of UMotionControllerComponent
+	//R_MotionController->Hand = EControllerHand::Right;
 	R_MotionController->SetupAttachment(RootComponent);
 	L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
 	L_MotionController->SetupAttachment(RootComponent);
