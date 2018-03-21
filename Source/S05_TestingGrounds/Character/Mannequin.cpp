@@ -11,17 +11,24 @@
 // Sets default values
 AMannequin::AMannequin()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Create a CameraComponent	
-	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
+	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(
+		TEXT("FirstPersonCamera")
+	);
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
-	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f); // Position the camera
+
+	// Position the camera
+	FirstPersonCameraComponent->RelativeLocation = FVector(
+		-39.56f, 1.75f, 64.f
+	);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
+	// Create a mesh component that will be used when being viewed from a
+	// '1st person' view (when controlling this pawn)
+	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(
+		TEXT("CharacterMesh1P")
+	);
 	Mesh1P->SetOnlyOwnerSee(true);
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
@@ -48,7 +55,6 @@ void AMannequin::BeginPlay()
 		FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true),
 		TEXT("GripPoint")
 	);
-
 	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 
 
@@ -83,17 +89,19 @@ void AMannequin::BeginPlay()
 void AMannequin::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
-void AMannequin::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AMannequin::SetupPlayerInputComponent
+(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 void AMannequin::Fire()
 {
+	// TODO: Input to fire bug--mouse click never calls Fire method
+	UE_LOG(LogTemp, Warning, TEXT("Fire method called."));
 	Gun->OnFire();
 }
 

@@ -23,7 +23,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent
+	(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<class AGun> GunBlueprint;
@@ -37,10 +38,20 @@ private:
 	class USkeletalMeshComponent* Mesh1P;
 
 	/** First person camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(
+		VisibleAnywhere,
+		BlueprintReadOnly,
+		Category = Camera,
+		meta = (AllowPrivateAccess = "true")
+	)
 	class UCameraComponent* FirstPersonCameraComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(
+		VisibleAnywhere,
+		BlueprintReadOnly,
+		Category = Camera,
+		meta = (AllowPrivateAccess = "true")
+	)
 	AGun* Gun;
 
 };
