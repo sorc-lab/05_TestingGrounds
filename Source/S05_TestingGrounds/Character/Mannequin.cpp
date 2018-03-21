@@ -7,7 +7,6 @@
 #include "Camera/CameraComponent.h"
 #include "../Weapons/Gun.h"
 
-
 // Sets default values
 AMannequin::AMannequin()
 {
@@ -49,6 +48,10 @@ void AMannequin::BeginPlay()
 		TEXT("GripPoint")
 	);
 	Gun->AnimInstance = Mesh1P->GetAnimInstance();
+	if (InputComponent != NULL)
+	{
+		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::Fire);
+	}
 
 	/** Additional Instructions for v4.18 */
 	// https://community.gamedev.tv/t/additional-instructions-for-later-versions-of-unreal/49212
