@@ -12,18 +12,14 @@
 AMannequin::AMannequin()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(
 		TEXT("FirstPersonCamera")
 	);
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
-
-	// Position the camera
 	FirstPersonCameraComponent->RelativeLocation = FVector(
-		-39.56f, 1.75f, 64.f
+		-39.56f, 1.75f, 64.f // Position the camera
 	);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
-
 	// Create a mesh component that will be used when being viewed from a
 	// '1st person' view (when controlling this pawn)
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(
@@ -46,18 +42,16 @@ void AMannequin::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Gun blueprint missing."));
 		return;
 	}
-
 	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
-
-	// attach gun mesh component
-	Gun->AttachToComponent(
+	Gun->AttachToComponent( // attach gun mesh component
 		Mesh1P,
 		FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true),
 		TEXT("GripPoint")
 	);
 	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 
-
+	/** Additional Instructions for v4.18 */
+	// https://community.gamedev.tv/t/additional-instructions-for-later-versions-of-unreal/49212
 
 	/** CURRENT REPO CODE */
 	/*if (GunBlueprint == nullptr) {
