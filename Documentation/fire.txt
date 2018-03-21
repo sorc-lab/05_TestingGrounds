@@ -1,0 +1,9 @@
+Who pulls the New Trigger?
+
+InputComponent         BTTask
+             \        /
+			  \      /
+			  Mannequin
+			     |
+				 |
+				Gun
