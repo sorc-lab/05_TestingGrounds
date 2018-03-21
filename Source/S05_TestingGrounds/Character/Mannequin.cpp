@@ -32,9 +32,13 @@ AMannequin::AMannequin()
 	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 }
 
+/** Additional Instructions for v4.18 */
+// https://community.gamedev.tv/t/additional-instructions-for-later-versions-of-unreal/49212
+
 // Called when the game starts or when spawned
 void AMannequin::BeginPlay()
 {
+	
 	Super::BeginPlay();
 	if (GunBlueprint == NULL)
 	{
@@ -50,36 +54,8 @@ void AMannequin::BeginPlay()
 	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 	if (InputComponent != NULL)
 	{
-		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::Fire);
-	}
-
-	/** Additional Instructions for v4.18 */
-	// https://community.gamedev.tv/t/additional-instructions-for-later-versions-of-unreal/49212
-
-	/** CURRENT REPO CODE */
-	/*if (GunBlueprint == nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("Gun blueprint missing."));
-		return;
-	}
-
-	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
-
-	//Attach gun mesh component to Skeleton, doing it here because the skelton is not yet created in the constructor
-	if (IsPlayerControlled())
-	{
-		Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-	}
-	else
-	{
-		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint_0"));
-	}
-
-	Gun->AnimInstance1P = Mesh1P->GetAnimInstance();
-	Gun->AnimInstance3P = GetMesh()->GetAnimInstance();
-
-	if (InputComponent != nullptr) {
 		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::PullTrigger);
-	}*/
+	}
 }
 
 // Called every frame
@@ -95,21 +71,7 @@ void AMannequin::SetupPlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void AMannequin::Fire()
-{
-	// TODO: Input to fire bug--mouse click never calls Fire method
-	UE_LOG(LogTemp, Warning, TEXT("Fire method called."));
-	Gun->OnFire();
-}
-
-
-/** REPO CODE */
-/*void AMannequin::UnPossessed() {
-	Super::UnPossessed();
-	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint_0"));
-}
-
 void AMannequin::PullTrigger()
 {
 	Gun->OnFire();
-}*/
+}
