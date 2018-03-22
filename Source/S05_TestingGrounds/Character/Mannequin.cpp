@@ -37,8 +37,7 @@ AMannequin::AMannequin()
 
 // Called when the game starts or when spawned
 void AMannequin::BeginPlay()
-{
-	
+{	
 	Super::BeginPlay();
 	if (GunBlueprint == NULL)
 	{
@@ -54,7 +53,9 @@ void AMannequin::BeginPlay()
 	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 	if (InputComponent != NULL)
 	{
-		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::PullTrigger);
+		InputComponent->BindAction(
+			"Fire", IE_Pressed, this, &AMannequin::PullTrigger
+		);
 	}
 }
 
